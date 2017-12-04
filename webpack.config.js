@@ -1,16 +1,27 @@
-var path = require("path");
-
 module.exports = {
-  entry: "./index.ts",
+  entry: './index.ts',
   output: {
-    filename: "bundle.js"
+    publicPath: 'simulator/',
+    path: __dirname + '/dist',
+    libraryTarget: 'umd',
+    library: 'simulator',
+    filename: 'simulator.js'
   },
+  devtool: 'source-map',
+  target: 'node',
+
   resolve: {
-    extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+    // Add '.ts' and '.tsx' as resolvable extensions.
+    extensions: [".ts", ".js", ".json"]
   },
+
   module: {
-    loaders: [
-      { test: /\.tsx?$/, loader: "ts-loader" }
-    ]
+    rules: [
+      // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
+      { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+    ],
   }
 }
+
