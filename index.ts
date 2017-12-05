@@ -1,19 +1,33 @@
 console.log("Hello world!");
 console.log(document);
 
+let message : string = '';
+
 document.addEventListener('keydown', (event) => {
+
  const keyName = event.key;
 
- if (keyName === 'Control') {
-   // do not alert when only Control key is pressed.
+ if (keyName === 'Control' || keyName === 'Shift') {
    return;
  }
+ else if (keyName === 'Enter') {
+   console.log('send message: ' + message);
 
- if (event.ctrlKey) {
-   // Even though event.key is not 'Control' (i.e. 'a' is pressed),
-   // event.ctrlKey may be true if Ctrl key is pressed at the time.
-   alert(`Combination of ctrlKey + ${keyName}`);
- } else {
-   alert(`Key pressed ${keyName}`);
+   const request = new Request(
+     'http://localhost:3000/' + message,
+     {
+       method: 'GET',
+       mode: 'no-cors'
+     });
+   fetch(request)
+     .then( (response) => {
+       message = '';
+     }).catch( (err) => {
+      console.log(err);
+      message = '';
+   });
+ }
+ else {
+   message = message.concat(keyName);
  }
 }, false);
