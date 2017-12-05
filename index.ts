@@ -14,18 +14,19 @@ document.addEventListener('keydown', (event) => {
    console.log('send message: ' + message);
 
    const request = new Request(
-     'http://localhost:3000/' + message,
+     'http://localhost:3000/?cmd=' + message,
      {
        method: 'GET',
        mode: 'no-cors'
      });
-   fetch(request)
-     .then( (response) => {
-       message = '';
-     }).catch( (err) => {
-      console.log(err);
-      message = '';
-   });
+   fetch(request);
+   message = '';
+   //   .then( (response) => {
+   //     message = '';
+   //   }).catch( (err) => {
+   //    console.log(err);
+   //    message = '';
+   // });
  }
  else {
    message = message.concat(keyName);
