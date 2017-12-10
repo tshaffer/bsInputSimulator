@@ -15,7 +15,7 @@ document.addEventListener('keydown', (event) => {
 
   console.log('keyName: ', keyName);
 
-  if (keyName === 'Control' || keyName === 'Shift') {
+  if (keyName === 'Control' || keyName === 'Shift' || keyName === 'Meta') {
     return;
   }
   else if (keyName === 'Enter') {
@@ -31,7 +31,14 @@ document.addEventListener('keydown', (event) => {
           mode: 'no-cors'
         });
       
-      fetch(request);
+      // fetch(request);
+      fetch(request)
+        .then( (response) => {
+          console.log(response);
+        }).catch( (err) => {
+        console.log(err);
+      });
+
     }  
     message = '';
   }
